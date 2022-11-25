@@ -1,3 +1,5 @@
+const password = require('password');
+
 var createError = require('http-errors');
 var express = require('express');
 var path = require('path');
@@ -12,8 +14,7 @@ var app = express();
 
 // setup mongoose connection
 const mongoose = require('mongoose');
-const mongoDB =
-  'mongodb+srv://admin:9gnjW9nDHqCW@cluster0.bsgsztp.mongodb.net/local_library?retryWrites=true&w=majority';
+const mongoDB = `mongodb+srv://admin:{password}@cluster0.bsgsztp.mongodb.net/local_library?retryWrites=true&w=majority`;
 mongoose.connect(mongoDB, { useNewUrlParser: true, useUnifiedTopology: true });
 const db = mongoose.connection;
 db.on('error', console.error.bind(console, 'MongoDB connection error'));
