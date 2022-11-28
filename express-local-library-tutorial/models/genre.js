@@ -3,7 +3,7 @@ const { stringify } = require('querystring');
 
 const Schema = mongoose.Schema;
 
-const genreSchema = new Schema({
+const GenreSchema = new Schema({
   name: {
     type: String,
     required: true,
@@ -13,9 +13,9 @@ const genreSchema = new Schema({
 });
 
 // Virtual for genre's URL
-genreSchema.virtual('url').get(function () {
+GenreSchema.virtual('url').get(function () {
   return `/catalog/genre/${this._id}`;
 });
 
 // Export the model
-module.exports = mongoose.model('genre', genreSchema);
+module.exports = mongoose.model('Genre', GenreSchema);

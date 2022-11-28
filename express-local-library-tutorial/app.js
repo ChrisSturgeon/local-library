@@ -1,10 +1,10 @@
-const password = require('password');
-
 var createError = require('http-errors');
 var express = require('express');
 var path = require('path');
 var cookieParser = require('cookie-parser');
 var logger = require('morgan');
+const compression = require('compression');
+const helmet = require('helmet');
 
 var indexRouter = require('./routes/index');
 var usersRouter = require('./routes/users');
@@ -14,10 +14,15 @@ var app = express();
 
 // setup mongoose connection
 const mongoose = require('mongoose');
-const mongoDB = `mongodb+srv://admin:{password}@cluster0.bsgsztp.mongodb.net/local_library?retryWrites=true&w=majority`;
+const mongoDB =
+  'mongodb+srv://admin:9gnjW9nDHqCW@cluster0.bsgsztp.mongodb.net/local_library?retryWrites=true&w=majority';
 mongoose.connect(mongoDB, { useNewUrlParser: true, useUnifiedTopology: true });
 const db = mongoose.connection;
 db.on('error', console.error.bind(console, 'MongoDB connection error'));
+
+// 3rd party middleware
+app.use(helmet());
+app.use(compression()); // Compress all routes
 
 // view engine setup
 app.set('views', path.join(__dirname, 'views'));
